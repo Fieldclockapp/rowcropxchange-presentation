@@ -1,122 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import { Card1 } from './components/Card1';
+import { Card2 } from './components/Card2';
+import { Card3 } from './components/Card3';
+import { Card4 } from './components/Card4';
+import { Card5 } from './components/Card5';
+import { Card6 } from './components/Card6';
+import { Card7 } from './components/Card7';
+import { Card8 } from './components/Card8';
+import { Card9 } from './components/Card9';
+import { Card10 } from './components/Card10';
+import { Navigation } from './components/Navigation';
+import './styles/globals.css';
+
+const cards = [
+  { component: Card1, title: 'DIY vs Professional' },
+  { component: Card2, title: 'Grower Network' },
+  { component: Card3, title: 'Three Paths to Growers' },
+  { component: Card4, title: 'Postcard Results' },
+  { component: Card5, title: 'AI Discovery' },
+  { component: Card6, title: '30-Day Timeline' },
+  { component: Card7, title: 'Analytics Dashboard' },
+  { component: Card8, title: 'Blog Content' },
+  { component: Card9, title: 'Landing Page' },
+  { component: Card10, title: 'Before/After' },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentCard, setCurrentCard] = useState(0);
+
+  const handleNext = () => {
+    if (currentCard < cards.length - 1) {
+      setCurrentCard(currentCard + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentCard > 0) {
+      setCurrentCard(currentCard - 1);
+    }
+  };
+
+  const handleCardSelect = (cardIndex: number) => {
+    setCurrentCard(cardIndex);
+  };
+
+  const CurrentCard = cards[currentCard].component;
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <div>
+      <CurrentCard />
+      <Navigation
+        currentCard={currentCard}
+        totalCards={cards.length}
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+        onCardSelect={handleCardSelect}
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
